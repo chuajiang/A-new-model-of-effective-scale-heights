@@ -388,41 +388,164 @@ datetick('x', 'dd');
 grid on;
 legend('Epstein', 'GNSS', 'Epstein-GNSS');
 legend('boxoff');
-% xlabel('鏃堕棿/鏃ユ湡');
+% xlabel('鏃堕�?/鏃ユ�?');
 xlabel('Day');
 ylabel('VTEC/TECU');
 title('Octorber, 2021');
 set(gca,'FontSize',18, 'FontWeight','bold');
 
 %%%%%Figure 9 reconstructed TEC in 2021
-%%%%the reconstructed data includes the density profiles, so it is large.
-%%%%If interesting, please access it by contact me (chuajiang@whu.edu.cn)
-% load('reconstructed_data.mat');
-% time=reconstructed_data.time;
-% t=reconstructed_data.t;
-% iv=reconstructed_data.iv;
-% ig=reconstructed_data.ig;
-% Vtec=reconstructed_data.Vtec;
-% f2VTEC=reconstructed_data.f2VTEC;
-% iono_profiles=reconstructed_data.iono_profiles;
-% 
-% deleHC = Vtec(iv)-gTEC(ig);
-% %%%Figure 9 histogram of error
-% figure;
-% edges = [-10 : 0.5 : 10];
-% histogram(deleHC, edges);
-% xlim([-10, 10]);
-% % ylim([0, 800]);
-% grid on;
-% xlabel("\DeltaVTEC/TECU");
-% ylabel("Number");
-% title('Reconstructed TEC compared with GNSS TEC in 2021');
-% set(gca,'FontSize',18, 'FontWeight','bold');
-% 
-% 
-% length(deleHC(deleHC >= -2.5 & deleHC <= 2.5)) / length(deleHC)
+load('reconstructed_data_2021.mat');
+time=reconstructed_data.time;
+t=reconstructed_data.t;
+iv=reconstructed_data.iv;
+ig=reconstructed_data.ig;
+Vtec=reconstructed_data.Vtec;
+f2VTEC=reconstructed_data.f2VTEC;
+iono_profiles=reconstructed_data.iono_profiles;
 
-%%%%Figure 10 Swarm B at 530 km compared with topside profiles
+deleHC = Vtec(iv)-gTEC(ig);
+%%%Figure 9 histogram of error
+figure;
+edges = [-10 : 0.5 : 10];
+histogram(deleHC, edges);
+xlim([-10, 10]);
+% ylim([0, 800]);
+grid on;
+xlabel("\DeltaVTEC/TECU");
+ylabel("Number");
+title('Reconstructed TEC compared with GNSS TEC in 2021');
+set(gca,'FontSize',18, 'FontWeight','bold');
+
+
+length(deleHC(deleHC >= -2.5 & deleHC <= 2.5)) / length(deleHC);
+
+
+%%%%Figure 10  compared with GNSS TEC in 2020
+
+load('reconstructed_data_2020.mat');
+time=reconstructed_data_2020.time;
+t=reconstructed_data_2020.t;
+iv=reconstructed_data_2020.iv;
+ig=reconstructed_data_2020.ig;
+Vtec=reconstructed_data_2020.Vtec;
+f2VTEC=reconstructed_data_2020.f2VTEC;
+iono_profiles=reconstructed_data_2020.iono_profiles;
+gTEC=reconstructed_data_2020.gTEC;
+deleHC = Vtec(iv)-gTEC(ig);
+
+figure;
+subplot(2,2,1)
+set(gcf,'unit', 'normalized', 'position',[0.1,0.1,0.9,0.4]);
+plot(t, Vtec(iv), 'o', 'MarkerSize', 3, 'MarkerFaceColor','b');
+hold on;
+plot(t, gTEC(ig), '+', 'MarkerSize', 3, 'MarkerFaceColor','r');
+hold on;
+plot(t, Vtec(iv)-gTEC(ig), '^', 'MarkerSize', 3, 'MarkerFaceColor','g');
+startTime = datenum(2020,3,20,0,0,0);
+endTime = datenum(2020,3,20,23,55,0);
+xlim([startTime endTime]);
+set(gca, 'xtick', startTime : datenum(0, 0, 0, 2, 0, 0) : endTime);
+set(gca, 'xticklabels', 0:2:23);
+% datetick('x', 'mmm');
+axis([startTime endTime -10 30]);
+grid on;
+legend('Epstein', 'GNSS', 'Epstein-GNSS');
+legend('boxoff');
+% xlabel('时间/月份');
+xlabel('Local Time/h');
+ylabel('VTEC/TECU');
+title('March 20');
+set(gca,'FontSize',18, 'FontWeight','bold');
+
+subplot(2,2,2)
+set(gcf,'unit', 'normalized', 'position',[0.1,0.1,0.9,0.4]);
+plot(t, Vtec(iv), 'o', 'MarkerSize', 3, 'MarkerFaceColor','b');
+hold on;
+plot(t, gTEC(ig), '+', 'MarkerSize', 3, 'MarkerFaceColor','r');
+hold on;
+plot(t, Vtec(iv)-gTEC(ig), '^', 'MarkerSize', 3, 'MarkerFaceColor','g');
+startTime = datenum(2020,9,20,0,0,0);
+endTime = datenum(2020,9,20,23,55,0);
+xlim([startTime endTime]);
+set(gca, 'xtick', startTime : datenum(0, 0, 0, 2, 0, 0) : endTime);
+set(gca, 'xticklabels', 0:2:23);
+% datetick('x', 'mmm');
+axis([startTime endTime -10 30]);
+grid on;
+legend('Epstein', 'GNSS', 'Epstein-GNSS');
+legend('boxoff');
+% xlabel('时间/月份');
+xlabel('Local Time/h');
+ylabel('VTEC/TECU');
+title('September 20');
+ylabel('VTEC/TECU');
+set(gca,'FontSize',18, 'FontWeight','bold');
+
+subplot(2,2,3)
+set(gcf,'unit', 'normalized', 'position',[0.1,0.1,0.9,0.4]);
+plot(t, Vtec(iv), 'o', 'MarkerSize', 3, 'MarkerFaceColor','b');
+hold on;
+plot(t, gTEC(ig), '+', 'MarkerSize', 3, 'MarkerFaceColor','r');
+hold on;
+plot(t, Vtec(iv)-gTEC(ig), '^', 'MarkerSize', 3, 'MarkerFaceColor','g');
+startTime = datenum(2020,10,20,0,0,0);
+endTime = datenum(2020,10,20,23,55,0);
+xlim([startTime endTime]);
+set(gca, 'xtick', startTime : datenum(0, 0, 0, 2, 0, 0) : endTime);
+set(gca, 'xticklabels', 0:2:23);
+% datetick('x', 'mmm');
+axis([startTime endTime -10 30]);
+grid on;
+legend('Epstein', 'GNSS', 'Epstein-GNSS');
+legend('boxoff');
+% xlabel('时间/月份');
+xlabel('Local Time/h');
+ylabel('VTEC/TECU');
+title('October 20');
+ylabel('VTEC/TECU');
+set(gca,'FontSize',18, 'FontWeight','bold');
+
+subplot(2,2,4)
+set(gcf,'unit', 'normalized', 'position',[0.1,0.1,0.9,0.4]);
+plot(t, Vtec(iv), 'o', 'MarkerSize', 3, 'MarkerFaceColor','b');
+hold on;
+plot(t, gTEC(ig), '+', 'MarkerSize', 3, 'MarkerFaceColor','r');
+hold on;
+plot(t, Vtec(iv)-gTEC(ig), '^', 'MarkerSize', 3, 'MarkerFaceColor','g');
+startTime = datenum(2020,12,24,0,0,0);
+endTime = datenum(2020,12,24,23,55,0);
+xlim([startTime endTime]);
+set(gca, 'xtick', startTime : datenum(0, 0, 0, 2, 0, 0) : endTime);
+set(gca, 'xticklabels', 0:2:23);
+% datetick('x', 'mmm');
+axis([startTime endTime -10 30]);
+grid on;
+legend('Epstein', 'GNSS', 'Epstein-GNSS');
+legend('boxoff');
+% xlabel('时间/月份');
+xlabel('Local Time/h');
+ylabel('VTEC/TECU');
+title('December 24');
+ylabel('VTEC/TECU');
+set(gca,'FontSize',18, 'FontWeight','bold');
+
+
+%%%Figure 10 histogram of error in 2020
+figure;
+edges = [-10 : 0.5 : 10];
+histogram(deleHC, edges);
+xlim([-10, 10]);
+% ylim([0, 800]);
+grid on;
+xlabel("\DeltaVTEC/TECU");
+ylabel("Number");
+set(gca,'FontSize',18, 'FontWeight','bold');
+
+length(deleHC(deleHC >= -2.5 & deleHC <= 2.5)) / length(deleHC)
+
+
+%%%%Figure 12 Swarm B at 530 km compared with topside profiles
 % load('SwarmB_03.mat');
 % load('SwarmB_08.mat');
 % load('SwarmB_12.mat');
